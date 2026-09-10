@@ -12,3 +12,7 @@ button {
 h2 {
   font-size: 1.875rem;
 }
+
+button {
+  cursor: pointer;
+}
