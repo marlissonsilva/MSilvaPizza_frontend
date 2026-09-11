@@ -20,7 +20,7 @@ export function Card({ pizza }: { pizza: Pizza }) {
         <img
           className="w-full h-48 object-cover rounded-t-lg"
           src={pizza.imageUrl || "https://placehold.co/600x400"}
-          alt={pizza.name || "Pizza Image"}
+          alt={pizza.name || "Imagem da Pizza"}
         />
         <span className="flex items-center gap-1 bg-stone-900/70 backdrop-blur rounded-lg text-sm absolute top-2 left-2 text-white px-3 py-1">
           {pizza.isGlutenFree ? (
@@ -37,9 +37,7 @@ export function Card({ pizza }: { pizza: Pizza }) {
       </div>
       <div className="flex flex-col gap-2 p-4">
         <h2 className="text-xl font-bold">{pizza.name || "Card Title"}</h2>
-        <p className="text-gray-600">
-          {pizza.description || "Card description goes here."}
-        </p>
+        <p className="text-gray-600">{pizza.description}</p>
         <div className="flex flexcol gap-2">
           <span className="text-gray-600 rounded-lg text-sm ">
             <strong>Massa:</strong> {pizza.doughType}
