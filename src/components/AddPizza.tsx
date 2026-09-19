@@ -5,7 +5,7 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 type Inputs = {
   uuid?: string;
   name: string;
-  isGlutenFree: boolean;
+  isGlutenFree: boolean | string;
   description: string;
   width: string;
   doughType: string;
@@ -28,8 +28,6 @@ export function AddPizza({ pizza, onSaved }: AddPizzaProps) {
   const {
     register,
     handleSubmit,
-    watch,
-    setValue,
     reset,
     formState: { errors },
   } = useForm<Inputs>();
@@ -39,7 +37,7 @@ export function AddPizza({ pizza, onSaved }: AddPizzaProps) {
       reset({
         uuid: pizza.uuid || (pizza.id as string),
         name: pizza.name,
-        isGlutenFree: pizza.isGlutenFree,
+        isGlutenFree: pizza.isGlutenFree ? "true" : "false",
         description: pizza.description,
         width: pizza.width,
         doughType: pizza.doughType,
@@ -52,7 +50,7 @@ export function AddPizza({ pizza, onSaved }: AddPizzaProps) {
       reset({
         uuid: "",
         name: "",
-        isGlutenFree: false,
+        isGlutenFree: "false",
         description: "",
         width: "",
         doughType: "",
@@ -135,10 +133,6 @@ export function AddPizza({ pizza, onSaved }: AddPizzaProps) {
             {...register("isGlutenFree", {
               required: "Informe se a pizza contém glúten.",
             })}
-            value={watch("isGlutenFree") ? "true" : "false"}
-            onChange={(e) =>
-              setValue("isGlutenFree", e.target.value === "true")
-            }
           >
             <option value="" disabled>
               Selecione

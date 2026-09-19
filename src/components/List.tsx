@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type { Pizza } from "./Card";
-import { API_URL } from "../shared/apiURL";
+import { apiFetch } from "../shared/api";
 
 export function List({
   onEditPizza,
@@ -19,7 +19,7 @@ export function List({
 
   useEffect(() => {
     const fetchPizzasPromise = async () =>
-      fetch(`${API_URL}pizza`).then(async (res) => {
+      apiFetch("pizza").then(async (res) => {
         if (!res.ok) throw new Error("Network response failed");
         const data = await res.json();
         setPizzas(data);

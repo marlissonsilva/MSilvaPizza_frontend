@@ -1,6 +1,9 @@
 import { NavLink } from "react-router";
+import { useAuth } from "../hooks/useAuth";
 
 export function Header() {
+  const { isAuthenticated, logout } = useAuth();
+
   return (
     <header className="flex bg-slate-800 text-white p-4">
       <div className="flex items-center justify-between gap-6 max-w-7xl m-auto w-full">
@@ -16,16 +19,37 @@ export function Header() {
           >
             Catálogo
           </NavLink>
-          <NavLink
-            to="/login"
-            className={({ isActive }) =>
-              `font-bold py-2 px-6 rounded border border-gray-400 ${
-                isActive ? "bg-gray-500" : "text-white"
-              }`
-            }
-          >
-            Gerenciar
-          </NavLink>
+          {isAuthenticated ? (
+            <>
+              <NavLink
+                to="/admin"
+                className={({ isActive }) =>
+                  `font-bold py-2 px-6 rounded border border-gray-400 ${
+                    isActive ? "bg-gray-500" : "text-white"
+                  }`
+                }
+              >
+                Admin
+              </NavLink>
+              <button
+                onClick={logout}
+                className="font-bold py-2 px-6 rounded border border-red-400 text-red-400 hover:bg-red-400 hover:text-white transition-colors"
+              >
+                Sair
+              </button>
+            </>
+          ) : (
+            <NavLink
+              to="/login"
+              className={({ isActive }) =>
+                `font-bold py-2 px-6 rounded border border-gray-400 ${
+                  isActive ? "bg-gray-500" : "text-white"
+                }`
+              }
+            >
+              Gerenciar
+            </NavLink>
+          )}
         </div>
       </div>
     </header>

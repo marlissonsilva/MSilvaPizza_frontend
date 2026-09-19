@@ -1,12 +1,19 @@
-import { useNavigate } from "react-router";
+import { useNavigate, Navigate } from "react-router";
 import { API_URL } from "../shared/apiURL";
 import { useState } from "react";
+import { useAuth } from "../hooks/useAuth";
 
 export function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { login, isAuthenticated } = useAuth();
+
+  if (isAuthenticated) {
+    return <Navigate to="/admin" replace />;
+  }
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!username || !password) {
@@ -29,6 +36,7 @@ export function Login() {
       const data = await response.json();
       console.log(data);
       alert(data.message);
+      login();
       navigate("/admin");
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Erro ao fazer login");
